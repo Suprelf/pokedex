@@ -1,0 +1,36 @@
+<mat-card class="card-container">
+    <div class="card-layout">
+        <img width="180px" height="180px" src={{sprite}}>
+
+        <div><h2>{{name | titlecase}}</h2></div>
+
+        <div class="card-types">
+            <button mat-raised-button *ngFor="let type of types" 
+                [ngClass]="{
+                    'normal' : type === 'normal',
+                    'fire' : type === 'fire',
+                    'water' : type === 'water',
+                    'electric' : type === 'electric',
+                    'grass' : type === 'grass',
+                    'ice' : type === 'ice',
+                    'fighting' : type === 'fighting',
+                    'poison' : type === 'poison',
+                    'ground' : type === 'ground',
+                    'flying' : type === 'flying',
+                    'psychic' : type === 'psychic',
+                    'bug' : type === 'bug',
+                    'rock' : type === 'rock',
+                    'ghost' : type === 'ghost',
+                    'dragon' : type === 'dragon',
+                    'dark' : type === 'dark',
+                    'steel' : type === 'steel',
+                    'fairy' : type === 'fairy'
+                }"
+                (click)="TypeClicked(type)">
+                {{type | titlecase}}
+            </button>
+        </div>
+    </div>
+
+
+</mat-card>

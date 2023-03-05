@@ -1,0 +1,35 @@
+<div class="element-container default-flex">
+
+    <button mat-raised-button class="board-header">
+        <h1>
+            {{'Pokedex' | uppercase}}
+        </h1>
+    </button>
+
+    <div class="board-main default-flex">
+
+        <div class="board-left default-flex">
+            <div class="board-left-list default-flex">
+                <app-card *ngFor="let pokemon of FilteredPokemonsList" [id]="pokemon.id" [name]="pokemon.name"
+                    [sprite]="pokemon.sprite" [types]="pokemon.types" [stats]="pokemon.stats" [weight]="pokemon.weight"
+                    [moves]="pokemon.moves" (click)="passToExpanded(pokemon)"
+                    (filterByTypeEvent)="filterList($event)">
+                </app-card>
+
+            </div>
+            <button mat-raised-button class="board-left-button" (click)="loadMore()">
+                <h2>Load more</h2>
+            </button>
+        </div>
+
+        <div class="board-right" *ngIf="ExpandedPokemonVievClicked">
+            <app-card-full [id]="ExpandedPokemonVievData.id" [name]="ExpandedPokemonVievData.name"
+                [sprite]="ExpandedPokemonVievData.sprite" [types]="ExpandedPokemonVievData.types"
+                [stats]="ExpandedPokemonVievData.stats" [weight]="ExpandedPokemonVievData.weight"
+                [moves]="ExpandedPokemonVievData.moves">
+
+            </app-card-full>
+        </div>
+
+    </div>
+</div>
