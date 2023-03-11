@@ -13,10 +13,12 @@ export class BoardComponent implements OnInit {
   UnfilteredPokemonsList: any = []
   ExpandedPokemonVievData: any = {}
   ExpandedPokemonVievClicked = false
+  loadingStatus = false
 
   constructor(private apiService: ApiService, private scroll: ViewportScroller) { }
 
   formatData(rawObservable: Observable<any>) {
+    this.loadingStatus = true
     rawObservable.subscribe((allPokemons: any) => {
           
       allPokemons.map((value: any) => {
@@ -33,8 +35,9 @@ export class BoardComponent implements OnInit {
       })
 
       console.log(this.FilteredPokemonsList)
-
+      this.loadingStatus = false
     })
+   
   }
 
   ngOnInit() {

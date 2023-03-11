@@ -1,6 +1,6 @@
 <div class="element-container default-flex">
 
-    <button mat-raised-button class="board-header">
+    <button mat-raised-button class="board-header" [disableRipple]="true">
         <h1>
             {{'Pokedex' | uppercase}}
         </h1>
@@ -17,10 +17,12 @@
                 </app-card>
 
             </div>
-            <button mat-raised-button class="board-left-button" (click)="loadMore()">
+            
+            <button mat-raised-button class="board-left-button" (click)="loadMore()" [disabled]="loadingStatus">
                 <h2>Load more</h2>
             </button>
         </div>
+        
 
         <div class="board-right" *ngIf="ExpandedPokemonVievClicked">
             <app-card-full [id]="ExpandedPokemonVievData.id" [name]="ExpandedPokemonVievData.name"
