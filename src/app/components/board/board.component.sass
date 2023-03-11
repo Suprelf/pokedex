@@ -9,17 +9,30 @@
     padding: 16px
 
     .board-header
-        width: 364px
-        height: 64px
         align-self: center
-        background-color: #6083ff
         cursor: default
+        
+        flex-direction: row
+        align-items: center
+        justify-content: center
 
-        transition: none !important
-        box-shadow: none !important
+        .board-header-button
+            width: 84px
+            height: 64px
+            padding: 0
 
-        h1
-            margin: 0
+
+
+        .board-header-pokedex
+            width: 364px
+            height: 64px
+            background-color: #6083ff
+            
+            transition: none !important
+            box-shadow: none !important
+
+            h1
+                margin: 0
 
     .board-main
         flex-direction: row

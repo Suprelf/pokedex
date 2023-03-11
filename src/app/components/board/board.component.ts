@@ -14,15 +14,20 @@ export class BoardComponent implements OnInit {
   ExpandedPokemonVievData: any = {}
   ExpandedPokemonVievClicked = false
   loadingStatus = false
+  nextDisabled = true
+  prevDisabled = true
+  PokemonVievPage = 0
 
   constructor(private apiService: ApiService, private scroll: ViewportScroller) { }
 
   formatData(rawObservable: Observable<any>) {
     this.loadingStatus = true
+    let pokemons: any = []
+
     rawObservable.subscribe((allPokemons: any) => {
-          
+
       allPokemons.map((value: any) => {
-        this.FilteredPokemonsList.push({
+        pokemons.push({
           id: value[0],
           name: value[1],
           sprite: value[2],
@@ -34,10 +39,11 @@ export class BoardComponent implements OnInit {
         )
       })
 
-      console.log(this.FilteredPokemonsList)
+      console.log(pokemons)
+      this.FilteredPokemonsList.push(pokemons)
       this.loadingStatus = false
     })
-   
+
   }
 
   ngOnInit() {
@@ -46,6 +52,7 @@ export class BoardComponent implements OnInit {
 
   loadMore() {
     this.formatData(this.apiService.getPokemons())
+    this.PokemonVievPage += 1
   }
 
   passToExpanded(data: any) {
@@ -53,9 +60,9 @@ export class BoardComponent implements OnInit {
     this.ExpandedPokemonVievClicked = true
     this.ExpandedPokemonVievData = data
 
-    this.scroll.scrollToPosition([0,0])
+    this.scroll.scrollToPosition([0, 0])
   }
-  
+
 
   filterList(type: string) {
     this.UnfilteredPokemonsList = this.FilteredPokemonsList
@@ -67,11 +74,34 @@ export class BoardComponent implements OnInit {
         this.FilteredPokemonsList.push(pokemon)
       }
     })
-
- 
-
   }
- 
+
+  paginatorNext() {
+    console.log(this.FilteredPokemonsList.length, this.PokemonVievPage)
+    
+    if (this.PokemonVievPage < this.FilteredPokemonsList.length) {
+      this.PokemonVievPage += 1
+    }
+    if (this.PokemonVievPage + 1 > this.FilteredPokemonsList.length) {
+      this.PokemonVievPage = 0
+    }
+    if (this.PokemonVievPage == this.FilteredPokemonsList.length) {
+      this.PokemonVievPage -= 1
+    }
+  }
+
+  paginatorPrev() {
+    console.log(this.FilteredPokemonsList.length, this.PokemonVievPage)
+
+    if (this.PokemonVievPage - 1 >= 0) {
+      this.PokemonVievPage -= 1
+    }
+    else {
+      this.PokemonVievPage = this.FilteredPokemonsList.length - 1
+    }
+  }
+
+
 
 
 }

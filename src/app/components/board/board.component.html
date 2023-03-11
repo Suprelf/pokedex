@@ -1,28 +1,42 @@
 <div class="element-container default-flex">
 
-    <button mat-raised-button class="board-header" [disableRipple]="true">
-        <h1>
-            {{'Pokedex' | uppercase}}
-        </h1>
-    </button>
+    <div class="board-header default-flex">
+        <button class="board-header-button" mat-raised-button (click)="paginatorPrev()"> 
+            <svg width="64" height="64" fill="currentColor" viewBox="0 0 16 16"> 
+                <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+            </svg> 
+        </button>
+
+        <button mat-raised-button class="board-header-pokedex" [disableRipple]="true">
+            <h1>
+                {{'Pokedex' | uppercase}}
+            </h1>
+        </button>
+
+        <button mat-raised-button class="board-header-button" (click)="paginatorNext()"> 
+            <svg width="64" height="64" fill="currentColor" viewBox="0 0 16 16"> 
+                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/> 
+            </svg>
+        </button>
+    </div>
+
 
     <div class="board-main default-flex">
 
         <div class="board-left default-flex">
             <div class="board-left-list default-flex">
-                <app-card *ngFor="let pokemon of FilteredPokemonsList" [id]="pokemon.id" [name]="pokemon.name"
+                <app-card *ngFor="let pokemon of FilteredPokemonsList[PokemonVievPage]" [id]="pokemon.id" [name]="pokemon.name"
                     [sprite]="pokemon.sprite" [types]="pokemon.types" [stats]="pokemon.stats" [weight]="pokemon.weight"
-                    [moves]="pokemon.moves" (click)="passToExpanded(pokemon)"
-                    (filterByTypeEvent)="filterList($event)">
+                    [moves]="pokemon.moves" (click)="passToExpanded(pokemon)" (filterByTypeEvent)="filterList($event)">
                 </app-card>
 
             </div>
-            
+
             <button mat-raised-button class="board-left-button" (click)="loadMore()" [disabled]="loadingStatus">
                 <h2>Load more</h2>
             </button>
         </div>
-        
+
 
         <div class="board-right" *ngIf="ExpandedPokemonVievClicked">
             <app-card-full [id]="ExpandedPokemonVievData.id" [name]="ExpandedPokemonVievData.name"
